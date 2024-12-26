@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  e2e-test:
+    build: .
+    container_name: e2e-test
+    environment:
+      E2E_HOST_IP: ${E2E_HOST_IP}
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    ports:
+      - "9322:9322"
+      - "9323:9323"
+      - "9324:9324"
+    command: yarn start

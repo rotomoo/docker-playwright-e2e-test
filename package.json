@@ -1,0 +1,24 @@
+{
+  "name": "e2e-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.2",
+    "allure-js-commons": "^3.0.7",
+    "allure-playwright": "^3.0.7"
+  },
+  "scripts": {
+    "start": "lsof -t -i:9322 -i:9323 -i:9324 2>/dev/null | xargs -r kill 2>/dev/null && yarn test && yarn clear && (yarn show-report & yarn test-ui & yarn allure) && node config/top-navigation.js",
+    "test": "yarn playwright test",
+    "show-report": "yarn playwright show-report --host=0.0.0.0 && node config/top-navigation.js",
+    "test-ui": "yarn playwright test --ui-host=0.0.0.0 --ui-port=9324 && node config/top-navigation.js",
+    "allure": "allure generate allure-results --clean -o allure-report && node config/top-navigation.js && allure open allure-report --port 9322 --host 0.0.0.0",
+    "clear": "( [ -d allure-report/data/attachments ] && find allure-report/data/attachments -type f -name '*.zip' -exec rm -rf {} \\; ) || true && ( [ -d allure-results ] && find allure-results -type f -name '*.zip' -exec rm -rf {} \\; ) || true && ( [ -d allure-report/data/attachments ] && find allure-report/data/attachments allure-results -type f -mtime +0 -mtime -4 \\( -name '*.png' -o -name '*.webm' \\) -exec rm -rf {} \\; ) || true"
+  },
+  "dependencies": {
+    "http-proxy-middleware": "^3.0.3",
+    "request": "^2.88.2"
+  }
+}

@@ -1,7 +1,7 @@
 # docker-playwright-e2e-test
 
 **Playwright, TypeScript, AllureReport**를 사용하여 E2E(End-to-End) 테스트를 자동화합니다.  
-서비스에 E2E 테스트를 도입해보세요.
+서비스에 E2E 테스트를 도입해보세요.
 
 ## 목차
 
